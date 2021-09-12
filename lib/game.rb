@@ -1,7 +1,7 @@
 class Game
   DICTIONARY = File.readlines('5desk.txt')
 
-  attr_reader :word, :clues
+  attr_reader :word, :clues, :guess
 
   def initialize
     @word = generate_secret_word
@@ -18,9 +18,8 @@ class Game
   def play
     until game_over?
       update_display
-      puts "Make a guess!"
-      @guess = gets.chomp
-      update_clues
+      @guess = new_guess
+      update_clues(guess)
     end
   end
 
@@ -29,12 +28,16 @@ class Game
     print "\n"
   end
 
-  def update_clues
-    
+  def new_guess
+    puts 'Make a guess!'
+    gets.chomp
+  end
+
+  def update_clues(guess)
+    clues.each_index { |index| clues[index] = guess if word[index] == guess }
   end
 
   def game_over?
     word == clues.join('')
-    true
   end
 end
