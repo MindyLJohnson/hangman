@@ -9,6 +9,7 @@ module UserInterface
     print_letters(clues)
     print 'Previous Guesses: '
     print_letters(previous_guesses)
+    print "Remaining Guesses: #{remaining_guesses}\n\n"
   end
 
   def print_letters(input)
@@ -17,7 +18,9 @@ module UserInterface
   end
 
   def update_clues(guess, previous_guesses)
+    temp_clues = clues.join('')
     clues.each_index { |index| clues[index] = guess if word[index] == guess }
     previous_guesses << guess if guess.length == 1
+    @remaining_guesses -= 1 if temp_clues == clues.join('')
   end
 end
