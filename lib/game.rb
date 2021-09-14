@@ -1,4 +1,8 @@
+require_relative 'user_interface'
+
 class Game
+  include UserInterface
+
   DICTIONARY = File.readlines('5desk.txt')
 
   attr_reader :word, :clues, :guess
@@ -6,6 +10,7 @@ class Game
   def initialize
     @word = generate_secret_word
     @clues = Array.new(word.length, '_')
+    @guess = ''
   end
 
   def generate_secret_word
@@ -17,27 +22,13 @@ class Game
 
   def play
     until game_over?
-      update_display
+      update_display(clues)
       @guess = new_guess
       update_clues(guess)
     end
   end
 
-  def update_display
-    clues.each { |letter| print " #{letter}" }
-    print "\n"
-  end
-
-  def new_guess
-    puts 'Make a guess!'
-    gets.chomp
-  end
-
-  def update_clues(guess)
-    clues.each_index { |index| clues[index] = guess if word[index] == guess }
-  end
-
   def game_over?
-    word == clues.join('')
+    word == clues.join('') || word == guess
   end
 end
