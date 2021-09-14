@@ -5,12 +5,13 @@ class Game
 
   DICTIONARY = File.readlines('5desk.txt')
 
-  attr_reader :word, :clues, :guess
+  attr_reader :word, :clues, :guess, :previous_guesses
 
   def initialize
     @word = generate_secret_word
     @clues = Array.new(word.length, '_')
     @guess = ''
+    @previous_guesses = []
   end
 
   def generate_secret_word
@@ -22,9 +23,9 @@ class Game
 
   def play
     until game_over?
-      update_display(clues)
+      update_display(clues, previous_guesses)
       @guess = new_guess
-      update_clues(guess)
+      update_clues(guess, previous_guesses)
     end
   end
 
