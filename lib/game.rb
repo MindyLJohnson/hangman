@@ -36,6 +36,13 @@ class Game
     end
   end
 
+  def update_clues(guess, previous_guesses)
+    temp_clues = clues.join('')
+    clues.each_index { |index| clues[index] = guess if word[index] == guess }
+    previous_guesses << guess if guess.length == 1
+    @remaining_guesses -= 1 if temp_clues == clues.join('')
+  end
+
   def game_over?
     word == clues.join('') || word == guess || remaining_guesses.zero?
   end
@@ -44,5 +51,15 @@ class Game
     @filename = "output/#{new_filename}.txt" if filename == ''
     Dir.mkdir('output') unless Dir.exist?('output')
     File.open(filename, 'w') { |file| file.puts current_status }
+  end
+
+  def load_game
+
+  def current_status
+    JSON.dump({ word: word,
+                clues: clues,
+                guess: guess,
+                previous_guesses: previous_guesses,
+                remaining_guesses: remaining_guesses })
   end
 end
