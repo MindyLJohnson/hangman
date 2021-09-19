@@ -2,31 +2,30 @@ require 'json'
 
 module UserInterface
   def new_game?
-    puts 'Would you like to load a saved game? (Yes/No)'
+    puts 'Would you like to load a saved game? (Yes/No)'.gray.bold
     gets.chomp.downcase[0] != 'y'
   end
 
   def display_saved_games
-    p Dir.glob('output/*.txt')
-    print "\n"
-    Dir.entries('output').reverse.drop(2).each do |file|
-      puts file.delete '.txt'
+    print "\nSaved Games:\n".bold
+    Dir.glob('*.txt', base: 'output').each do |file|
+      puts file.delete_suffix '.txt'
     end
     print "\n"
   end
 
   def select_game
-    puts 'Choose game to load.'
+    puts 'Choose game to load. (Enter CANCEL to back out.)'.gray.bold
     gets.chomp.downcase
   end
 
   def new_filename
-    puts 'Enter a new filename to save your game.'
+    puts 'Enter a new filename to save your game.'.gray.bold
     gets.chomp.downcase
   end
 
   def new_guess
-    puts 'Make a guess! Or enter SAVE to save your game.'
+    puts 'Make a guess! Or enter SAVE to save your game.'.gray.bold
     gets.chomp.downcase
   end
 

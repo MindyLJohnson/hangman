@@ -88,7 +88,7 @@ class Game
 
   def conclusion
     if word == clues.join('') || word == guess
-      puts 'CONGRATS!! You guess the word!'.green.bold
+      puts "CONGRATS!! You guess the word!\n".green.bold
     else
       puts 'Game over! You have been hanged.'.red.bold
       puts "The word was #{word.cyan.bold}.\n"

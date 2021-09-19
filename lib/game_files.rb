@@ -2,16 +2,20 @@ module GameFiles
   def save_game
     @filename = "output/#{new_filename}.txt" if filename == ''
     Dir.mkdir('output') unless Dir.exist?('output')
-    File.open(filename, 'w') { |file| file.puts save_status }
+    File.open(filename, 'w') { |file| file.puts save_variables }
   end
 
   def load_game
-    display_saved_games
-    @filename = "output/#{select_game}.txt"
-    load_status
+    if Dir.empty?('output')
+      puts "\nThere aren't any saved games. Starting a new one.".gray.bold
+    else
+      display_saved_games
+      @filename = "output/#{select_game}.txt"
+      load_variables
+    end
   end
 
-  def save_status
+  def save_variables
     JSON.dump({ word: word,
                 clues: clues,
                 guess: guess,
@@ -21,7 +25,7 @@ module GameFiles
                 body_parts: body_parts })
   end
 
-  def load_status
+  def load_variables
     saved_status = JSON.parse File.read filename
     @word = saved_status['word']
     @clues = saved_status['clues']
