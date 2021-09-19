@@ -31,7 +31,6 @@ class Game
   def start
     load_game unless new_game?
     play
-    update_display(clues, display_guesses)
   end
 
   def play
@@ -44,19 +43,13 @@ class Game
       end
       update_guesses
     end
+    update_display(clues, display_guesses)
   end
 
   def update_guesses
     if unique_guess?
-      temp_clues = clues.join('')
-      clues.each_index { |index| clues[index] = guess if word[index] == guess }
+      update_clues
       previous_guesses << guess
-      if temp_clues == clues.join('')
-        display_guesses << guess.red if guess.length == 1
-        update_gallows
-      else
-        display_guesses << guess.green if guess.length == 1
-      end
     else
       puts "\nYou already made that guess!".yellow
     end
@@ -66,8 +59,23 @@ class Game
     previous_guesses.none? guess
   end
 
-  def update_gallows
+  def update_clues
+    temp_clues = clues.join('')
+    clues.each_index { |index| clues[index] = guess if word[index] == guess }
+    temp_clues == clues.join('') ? wrong_guess : right_guess
+  end
+
+  def right_guess
+    display_guesses << guess.green if guess.length == 1
+  end
+
+  def wrong_guess
     @remaining_guesses -= 1
+    display_guesses << guess.red if guess.length == 1
+    update_gallows
+  end
+
+  def update_gallows
     @body_parts[5 - remaining_guesses] = HANGMAN[5 - remaining_guesses].cyan
   end
 
