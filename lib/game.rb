@@ -1,4 +1,5 @@
 require_relative 'user_interface'
+require_relative 'color'
 
 class Game
   include UserInterface
@@ -16,7 +17,7 @@ class Game
     @previous_guesses = []
     @remaining_guesses = 6
     @filename = ''
-    @body_parts = [' ', ' ', ' ', ' ', ' ']
+    @body_parts = Array.new(5, ' ')
   end
 
   def generate_secret_word
@@ -26,22 +27,22 @@ class Game
     word_list[rand(word_list.size)]
   end
 
+  def start
+    load_game unless new_game?
+    play
+    update_display(clues, previous_guesses)
+  end
+
   def play
-    setup
     until game_over?
       update_display(clues, previous_guesses)
       @guess = new_guess
       if guess == 'save'
-        p save_game
+        save_game
         next
       end
       update_guesses(guess, previous_guesses)
     end
-    update_display(clues, previous_guesses)
-  end
-
-  def setup
-    load_game unless new_game?
   end
 
   def update_guesses(guess, previous_guesses)
@@ -53,7 +54,7 @@ class Game
 
   def update_gallows
     @remaining_guesses -= 1
-    @body_parts[5 - remaining_guesses] = HANGMAN[5 - remaining_guesses]
+    @body_parts[5 - remaining_guesses] = HANGMAN[5 - remaining_guesses].yellow
   end
 
   def game_over?

@@ -35,7 +35,6 @@ module UserInterface
     print_letters(clues)
     print 'Previous Guesses: '
     print_letters(previous_guesses)
-    print "Remaining Guesses: #{remaining_guesses}\n\n"
   end
 
   def hangman
