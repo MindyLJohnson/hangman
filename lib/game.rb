@@ -7,14 +7,15 @@ class Game
   DICTIONARY = File.readlines('5desk.txt')
   HANGMAN = ["\u32E1", '|', '/', '\\', '/', '\\'].freeze
 
-  attr_reader :word, :clues, :guess, :previous_guesses, :remaining_guesses,
-              :filename, :body_parts
+  attr_reader :word, :clues, :guess, :previous_guesses, :display_guesses,
+              :remaining_guesses, :filename, :body_parts
 
   def initialize
     @word = generate_secret_word
     @clues = Array.new(word.length, '_')
     @guess = ''
     @previous_guesses = []
+    @display_guesses = []
     @remaining_guesses = 6
     @filename = ''
     @body_parts = Array.new(5, ' ')
@@ -30,31 +31,44 @@ class Game
   def start
     load_game unless new_game?
     play
-    update_display(clues, previous_guesses)
+    update_display(clues, display_guesses)
   end
 
   def play
     until game_over?
-      update_display(clues, previous_guesses)
+      update_display(clues, display_guesses)
       @guess = new_guess
       if guess == 'save'
         save_game
         next
       end
-      update_guesses(guess, previous_guesses)
+      update_guesses
     end
   end
 
-  def update_guesses(guess, previous_guesses)
-    temp_clues = clues.join('')
-    clues.each_index { |index| clues[index] = guess if word[index] == guess }
-    previous_guesses << guess if guess.length == 1
-    update_gallows if temp_clues == clues.join('')
+  def update_guesses
+    if unique_guess?
+      temp_clues = clues.join('')
+      clues.each_index { |index| clues[index] = guess if word[index] == guess }
+      previous_guesses << guess
+      if temp_clues == clues.join('')
+        display_guesses << guess.red if guess.length == 1
+        update_gallows
+      else
+        display_guesses << guess.green if guess.length == 1
+      end
+    else
+      puts "\nYou already made that guess!".yellow
+    end
+  end
+
+  def unique_guess?
+    previous_guesses.none? guess
   end
 
   def update_gallows
     @remaining_guesses -= 1
-    @body_parts[5 - remaining_guesses] = HANGMAN[5 - remaining_guesses].yellow
+    @body_parts[5 - remaining_guesses] = HANGMAN[5 - remaining_guesses].cyan
   end
 
   def game_over?

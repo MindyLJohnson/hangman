@@ -29,12 +29,12 @@ module UserInterface
     gets.chomp.downcase
   end
 
-  def update_display(clues, previous_guesses)
+  def update_display(clues, display_guesses)
     print hangman
     print 'Word: '
     print_letters(clues)
     print 'Previous Guesses: '
-    print_letters(previous_guesses)
+    print_letters(display_guesses)
   end
 
   def hangman
