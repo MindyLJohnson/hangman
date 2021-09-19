@@ -30,11 +30,26 @@ module UserInterface
   end
 
   def update_display(clues, previous_guesses)
+    print hangman
     print 'Word: '
     print_letters(clues)
     print 'Previous Guesses: '
     print_letters(previous_guesses)
     print "Remaining Guesses: #{remaining_guesses}\n\n"
+  end
+
+  def hangman
+    puts <<-HEREDOC
+
+          __________
+          |        |
+          |       \u32E1
+          |       /|\\
+          |        |
+          |       / \\
+        __|__
+
+    HEREDOC
   end
 
   def print_letters(input)
