@@ -16,7 +16,12 @@ module UserInterface
 
   def select_game
     puts 'Choose game to load.'.gray.bold
-    gets.chomp.downcase
+    selected_game = gets.chomp.downcase
+    until File.exist?("output/#{selected_game}.txt")
+      puts "\nSaved game does not exist. Please enter an available game.".bold
+      selected_game = gets.chomp.downcase
+    end
+    selected_game
   end
 
   def new_filename
