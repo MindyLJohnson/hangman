@@ -31,6 +31,7 @@ class Game
   def start
     load_game unless new_game?
     play
+    conclusion
   end
 
   def play
@@ -81,6 +82,15 @@ class Game
 
   def game_over?
     word == clues.join('') || word == guess || remaining_guesses.zero?
+  end
+
+  def conclusion
+    if word == clues.join('') || word == guess
+      puts 'CONGRATS!! You guess the word!'.green
+    else
+      puts 'Game over! You have been hanged.'.red
+      puts "The word was #{word.cyan.bold}.\n"
+    end
   end
 
   def save_game
