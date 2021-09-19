@@ -15,7 +15,7 @@ module UserInterface
   end
 
   def select_game
-    puts 'Choose game to load. (Enter CANCEL to back out.)'.gray.bold
+    puts 'Choose game to load.'.gray.bold
     gets.chomp.downcase
   end
 
@@ -25,7 +25,8 @@ module UserInterface
   end
 
   def new_guess
-    puts 'Make a guess! Or enter SAVE to save your game.'.gray.bold
+    puts 'Make a guess!'.gray.bold
+    puts '(Enter SAVE to save your game or QUIT to quit.)'.gray.bold
     gets.chomp.downcase
   end
 

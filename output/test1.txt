@@ -1,0 +1,1 @@
+{"word":"racial","clues":["_","a","_","_","a","_"],"guess":"save","previous_guesses":["a"],"display_guesses":["\u001b[32ma\u001b[0m"],"remaining_guesses":6,"body_parts":[" "," "," "," "," "]}

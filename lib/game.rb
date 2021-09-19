@@ -33,20 +33,22 @@ class Game
   def start
     load_game unless new_game?
     play
-    conclusion
+    if game_over?
+      update_display(clues, display_guesses)
+      conclusion
+    else
+      puts "\nBye! Come back soon!\n".magenta.bold
+    end
   end
 
   def play
     until game_over?
       update_display(clues, display_guesses)
       @guess = new_guess
-      if guess == 'save'
-        save_game
-        next
-      end
-      update_guesses
+      break if guess == 'quit'
+
+      guess == 'save' ? save_game : update_guesses
     end
-    update_display(clues, display_guesses)
   end
 
   def update_guesses
@@ -88,7 +90,7 @@ class Game
 
   def conclusion
     if word == clues.join('') || word == guess
-      puts "CONGRATS!! You guess the word!\n".green.bold
+      puts "CONGRATS!! You guessed the word!\n".green.bold
     else
       puts 'Game over! You have been hanged.'.red.bold
       puts "The word was #{word.cyan.bold}.\n"
