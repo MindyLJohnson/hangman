@@ -16,7 +16,9 @@ module GameFiles
                 clues: clues,
                 guess: guess,
                 previous_guesses: previous_guesses,
-                remaining_guesses: remaining_guesses })
+                display_guesses: display_guesses,
+                remaining_guesses: remaining_guesses,
+                body_parts: body_parts })
   end
 
   def load_status
@@ -25,6 +27,8 @@ module GameFiles
     @clues = saved_status['clues']
     @guess = saved_status['guess']
     @previous_guesses = saved_status['previous_guesses']
+    @display_guesses = saved_status['display_guesses']
     @remaining_guesses = saved_status['remaining_guesses']
+    @body_parts = saved_status['body_parts']
   end
 end

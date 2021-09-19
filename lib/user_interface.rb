@@ -7,6 +7,7 @@ module UserInterface
   end
 
   def display_saved_games
+    p Dir.glob('output/*.txt')
     print "\n"
     Dir.entries('output').reverse.drop(2).each do |file|
       puts file.delete '.txt'
