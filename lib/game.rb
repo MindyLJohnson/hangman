@@ -4,9 +4,10 @@ class Game
   include UserInterface
 
   DICTIONARY = File.readlines('5desk.txt')
+  HANGMAN = ["\u32E1", '|', '/', '\\', '/', '\\'].freeze
 
   attr_reader :word, :clues, :guess, :previous_guesses, :remaining_guesses,
-              :filename
+              :filename, :body_parts
 
   def initialize
     @word = generate_secret_word
@@ -15,6 +16,7 @@ class Game
     @previous_guesses = []
     @remaining_guesses = 6
     @filename = ''
+    @body_parts = [' ', ' ', ' ', ' ', ' ']
   end
 
   def generate_secret_word
@@ -33,19 +35,25 @@ class Game
         p save_game
         next
       end
-      update_clues(guess, previous_guesses)
+      update_guesses(guess, previous_guesses)
     end
+    update_display(clues, previous_guesses)
   end
 
   def setup
     load_game unless new_game?
   end
 
-  def update_clues(guess, previous_guesses)
+  def update_guesses(guess, previous_guesses)
     temp_clues = clues.join('')
     clues.each_index { |index| clues[index] = guess if word[index] == guess }
     previous_guesses << guess if guess.length == 1
-    @remaining_guesses -= 1 if temp_clues == clues.join('')
+    update_gallows if temp_clues == clues.join('')
+  end
+
+  def update_gallows
+    @remaining_guesses -= 1
+    @body_parts[5 - remaining_guesses] = HANGMAN[5 - remaining_guesses]
   end
 
   def game_over?
