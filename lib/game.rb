@@ -27,7 +27,7 @@ class Game
     word_list = DICTIONARY.collect do |word|
       word.chomp if word.length.between?(5, 12)
     end.compact
-    word_list[rand(word_list.size)]
+    word_list[rand(word_list.size)].downcase
   end
 
   def start
@@ -54,7 +54,7 @@ class Game
       update_clues
       previous_guesses << guess
     else
-      puts "\nYou already made that guess!".yellow
+      puts "\nYou already made that guess!".yellow.bold
     end
   end
 
@@ -79,7 +79,7 @@ class Game
   end
 
   def update_gallows
-    @body_parts[5 - remaining_guesses] = HANGMAN[5 - remaining_guesses].cyan
+    @body_parts[5 - remaining_guesses] = HANGMAN[5 - remaining_guesses].yellow
   end
 
   def game_over?
@@ -88,9 +88,9 @@ class Game
 
   def conclusion
     if word == clues.join('') || word == guess
-      puts 'CONGRATS!! You guess the word!'.green
+      puts 'CONGRATS!! You guess the word!'.green.bold
     else
-      puts 'Game over! You have been hanged.'.red
+      puts 'Game over! You have been hanged.'.red.bold
       puts "The word was #{word.cyan.bold}.\n"
     end
   end
