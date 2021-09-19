@@ -5,7 +5,8 @@ class Game
 
   DICTIONARY = File.readlines('5desk.txt')
 
-  attr_reader :word, :clues, :guess, :previous_guesses, :remaining_guesses
+  attr_reader :word, :clues, :guess, :previous_guesses, :remaining_guesses,
+              :filename
 
   def initialize
     @word = generate_secret_word
@@ -13,6 +14,7 @@ class Game
     @guess = ''
     @previous_guesses = []
     @remaining_guesses = 6
+    @filename = ''
   end
 
   def generate_secret_word
@@ -26,11 +28,21 @@ class Game
     until game_over?
       update_display(clues, previous_guesses)
       @guess = new_guess
+      if guess == 'save'
+        p save_game
+        next
+      end
       update_clues(guess, previous_guesses)
     end
   end
 
   def game_over?
     word == clues.join('') || word == guess || remaining_guesses.zero?
+  end
+
+  def save_game
+    @filename = "output/#{new_filename}.txt" if filename == ''
+    Dir.mkdir('output') unless Dir.exist?('output')
+    File.open(filename, 'w') { |file| file.puts current_status }
   end
 end

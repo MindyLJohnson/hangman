@@ -1,7 +1,9 @@
+require 'json'
+
 module UserInterface
   def new_guess
-    puts 'Make a guess!'
-    gets.chomp
+    puts 'Make a guess! Or enter SAVE to save your game.'
+    gets.chomp.downcase
   end
 
   def update_display(clues, previous_guesses)
@@ -22,5 +24,18 @@ module UserInterface
     clues.each_index { |index| clues[index] = guess if word[index] == guess }
     previous_guesses << guess if guess.length == 1
     @remaining_guesses -= 1 if temp_clues == clues.join('')
+  end
+
+  def new_filename
+    puts 'Enter a new filename to save your game.'
+    gets.chomp
+  end
+
+  def current_status
+    JSON.dump({ word: word,
+                clues: clues,
+                guess: guess,
+                previous_guesses: previous_guesses,
+                remaining_guesses: remaining_guesses })
   end
 end

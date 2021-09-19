@@ -1,0 +1,1 @@
+{"word":"ingot","clues":["i","_","_","_","_"],"guess":"save","previous_guesses":["e","s","a","i"],"remaining_guesses":3}
