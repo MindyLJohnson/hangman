@@ -51,7 +51,7 @@ module UserInterface
     puts <<-HEREDOC
 
           __________
-          |        |
+          |/       |
           |       #{body_parts[0]}
           |       #{body_parts[2]}#{body_parts[1]}#{body_parts[3]}
           |       #{body_parts[4]} #{body_parts[5]}
