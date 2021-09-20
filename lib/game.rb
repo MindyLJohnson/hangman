@@ -25,9 +25,9 @@ class Game
 
   def generate_secret_word
     word_list = DICTIONARY.collect do |word|
-      word.chomp if word.length.between?(5, 12)
+      word.chomp if word.length.between?(5, 12) || word[0] == word[0].downcase
     end.compact
-    word_list[rand(word_list.size)].downcase
+    word_list[rand(word_list.size)]
   end
 
   def start
