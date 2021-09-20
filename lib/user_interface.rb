@@ -15,13 +15,17 @@ module UserInterface
   end
 
   def select_game
-    puts 'Choose game to load.'.gray.bold
+    puts 'Choose game to load. (Enter CANCEL to back out.)'.gray.bold
     selected_game = gets.chomp.downcase
-    until File.exist?("output/#{selected_game}.txt")
-      puts "\nSaved game does not exist. Please enter an available game.".bold
+    until file_exists?(selected_game) || selected_game == 'cancel'
+      puts "\nGame does not exist. Please enter an available game.".bold
       selected_game = gets.chomp.downcase
     end
     selected_game
+  end
+
+  def file_exists?(filename)
+    File.exist?("output/#{filename}.txt")
   end
 
   def new_filename
@@ -31,7 +35,7 @@ module UserInterface
 
   def new_guess
     puts 'Make a guess!'.gray.bold
-    puts '(Enter SAVE to save your game or QUIT to quit.)'.gray.bold
+    puts '(Enter SAVE to save your game or QUIT to quit.)'
     gets.chomp.downcase
   end
 

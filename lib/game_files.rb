@@ -10,7 +10,10 @@ module GameFiles
       puts "\nThere aren't any saved games. Starting a new one.".gray.bold
     else
       display_saved_games
-      @filename = "output/#{select_game}.txt"
+      game_selected = select_game
+      return if game_selected == 'cancel'
+
+      @filename = "output/#{game_selected}.txt"
       load_variables
     end
   end
