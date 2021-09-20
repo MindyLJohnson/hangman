@@ -1,0 +1,1 @@
+{"word":"coverlet","clues":["_","_","_","e","r","_","e","t"],"guess":"save","previous_guesses":["e","s","t","r"],"display_guesses":["\u001b[32me\u001b[0m","\u001b[31ms\u001b[0m","\u001b[32mt\u001b[0m","\u001b[32mr\u001b[0m"],"remaining_guesses":5,"body_parts":["\u001b[33m㋡\u001b[0m"," "," "," "," "]}

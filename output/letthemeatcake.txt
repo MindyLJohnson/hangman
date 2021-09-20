@@ -1,0 +1,1 @@
+{"word":"lapeled","clues":["_","_","_","e","_","e","_"],"guess":"save","previous_guesses":["e","s","r","n"],"display_guesses":["\u001b[32me\u001b[0m","\u001b[31ms\u001b[0m","\u001b[31mr\u001b[0m","\u001b[31mn\u001b[0m"],"remaining_guesses":3,"body_parts":["\u001b[33m㋡\u001b[0m","\u001b[33m|\u001b[0m","\u001b[33m/\u001b[0m"," "," "]}

@@ -29,8 +29,8 @@ module UserInterface
   end
 
   def new_filename
-    puts 'Enter a new filename to save your game.'.gray.bold
-    gets.chomp.downcase
+    puts "\nEnter a new filename to save your game.".gray.bold
+    gets.chomp
   end
 
   def new_guess

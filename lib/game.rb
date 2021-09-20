@@ -25,7 +25,7 @@ class Game
 
   def generate_secret_word
     word_list = DICTIONARY.collect do |word|
-      word.chomp if word.length.between?(5, 12) || word[0] == word[0].downcase
+      word.chomp if word.length.between?(5, 12) && word[0] == word[0].downcase
     end.compact
     word_list[rand(word_list.size)]
   end
@@ -34,7 +34,7 @@ class Game
     load_game unless new_game?
     play
     if game_over?
-      update_display(clues, display_guesses)
+      update_display(word.split(''), display_guesses)
       conclusion
     else
       puts "\nBye! Come back soon!\n".magenta.bold
